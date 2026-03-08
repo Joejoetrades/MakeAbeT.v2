@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MakeAbeT — Join the Waitlist</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=IBM+Plex+Mono:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #080b0f;
+    --surface: #0f1318;
+    --border: #1c2230;
+    --bl: #2a3445;
+    --green: #00e5a0;
+    --green2: #00ffb2;
+    --green-dim: rgba(0,229,160,0.1);
+    --green-glow: rgba(0,229,160,0.25);
+    --text: #e8edf5;
+    --muted: #5a6a80;
+    --red: #ff4d6a;
+  }
+
+  * { margin:0; padding:0; box-sizing:border-box; }
+
+  html, body {
+    height: 100%;
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
+  }
+
+  /* ── grid bg */
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.018) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.018) 1px, transparent 1px);
+    background-size: 64px 64px;
+    pointer-events: none; z-index: 0;
+  }
+
+  /* ── green radial glow top center */
+  body::after {
+    content: '';
+    position: fixed;
+    top: -200px; left: 50%;
+    transform: translateX(-50%);
+    width: 900px; height: 600px;
+    background: radial-gradient(ellipse at center, rgba(0,229,160,0.12) 0%, transparent 70%);
+    pointer-events: none; z-index: 0;
+  }
+
+  /* ── NAV */
+  nav {
+    position: relative; z-index: 10;
+    padding: 28px 48px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+
+  .logo {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800; font-size: 1.4rem;
+    letter-spacing: -0.5px;
+  }
+  .logo em { font-style: normal; color: var(--green); }
+
+  .nav-badge {
+    display: flex; align-items: center; gap: 7px;
+    padding: 6px 14px;
+    background: rgba(153,69,255,0.1);
+    border: 1px solid rgba(153,69,255,0.2);
+    border-radius: 100px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.72rem; color: #b07dff; letter-spacing: 0.5px;
+  }
+  .nav-badge::before {
+    content: '';
+    width: 6px; height: 6px;
+    background: #9945ff; border-radius: 50%;
+    box-shadow: 0 0 8px #9945ff;
+  }
+
+  /* ── MAIN */
+  main {
+    position: relative; z-index: 1;
+    flex: 1;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    padding: 40px 24px 80px;
+    text-align: center;
+  }
+
+  /* ── Eyebrow */
+  .eyebrow {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 6px 16px;
+    background: var(--green-dim);
+    border: 1px solid rgba(0,229,160,0.22);
+    border-radius: 100px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.72rem; color: var(--green); letter-spacing: 1px;
+    margin-bottom: 32px;
+    animation: fadeUp 0.5s ease both;
+  }
+  .eyebrow::before {
+    content: '';
+    width: 6px; height: 6px;
+    background: var(--green); border-radius: 50%;
+    box-shadow: 0 0 8px var(--green);
+    animation: pulse 2s ease infinite;
+  }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.25} }
+
+  /* ── Headline */
+  h1 {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: clamp(3rem, 8vw, 6.5rem);
+    line-height: 0.92;
+    letter-spacing: -3px;
+    margin-bottom: 28px;
+    animation: fadeUp 0.5s 0.1s ease both;
+  }
+  h1 .line2 { color: var(--green); display: block; }
+
+  /* ── Sub */
+  .sub {
+    font-size: clamp(1rem, 2vw, 1.15rem);
+    color: var(--muted);
+    max-width: 480px;
+    line-height: 1.7;
+    margin-bottom: 48px;
+    animation: fadeUp 0.5s 0.2s ease both;
+  }
+
+  /* ── Form */
+  .form-wrap {
+    width: 100%; max-width: 480px;
+    animation: fadeUp 0.5s 0.3s ease both;
+  }
+
+  .input-row {
+    display: flex; gap: 10px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 6px 6px 6px 20px;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  .input-row:focus-within {
+    border-color: rgba(0,229,160,0.4);
+    box-shadow: 0 0 0 3px rgba(0,229,160,0.08);
+  }
+
+  .input-row input {
+    flex: 1;
+    background: transparent;
+    border: none; outline: none;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.95rem;
+    color: var(--text);
+    min-width: 0;
+  }
+  .input-row input::placeholder { color: var(--muted); }
+
+  .submit-btn {
+    padding: 12px 24px;
+    background: var(--green);
+    color: #000;
+    border: none; border-radius: 10px;
+    font-family: 'Syne', sans-serif;
+    font-weight: 800; font-size: 0.9rem;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all 0.2s;
+    flex-shrink: 0;
+  }
+  .submit-btn:hover {
+    background: var(--green2);
+    box-shadow: 0 0 24px var(--green-glow);
+    transform: translateY(-1px);
+  }
+  .submit-btn:disabled {
+    opacity: 0.6; cursor: not-allowed; transform: none;
+  }
+
+  /* ── Status message */
+  #msg {
+    margin-top: 16px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.8rem;
+    min-height: 20px;
+    transition: all 0.3s;
+  }
+  #msg.success { color: var(--green); }
+  #msg.error   { color: var(--red); }
+
+  /* ── Stats row */
+  .stats {
+    display: flex; align-items: center; gap: 32px;
+    margin-top: 64px;
+    padding-top: 40px;
+    border-top: 1px solid var(--border);
+    animation: fadeUp 0.5s 0.4s ease both;
+  }
+  .stat-val {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800; font-size: 1.6rem;
+    letter-spacing: -1px;
+  }
+  .stat-lbl {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.68rem; color: var(--muted);
+    letter-spacing: 0.8px; margin-top: 2px;
+  }
+  .stat-div { width:1px; height:36px; background:var(--border); }
+
+  /* ── Feature pills */
+  .features {
+    display: flex; flex-wrap: wrap; gap: 10px;
+    justify-content: center;
+    margin-bottom: 48px;
+    animation: fadeUp 0.5s 0.25s ease both;
+  }
+  .feat {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 7px 14px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 100px;
+    font-size: 0.78rem; color: var(--muted);
+    font-family: 'IBM Plex Mono', monospace;
+    letter-spacing: 0.3px;
+  }
+  .feat .dot { width:5px;height:5px;border-radius:50%;background:var(--green); }
+
+  /* ── Footer */
+  footer {
+    position: relative; z-index: 1;
+    text-align: center;
+    padding: 24px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--muted);
+    letter-spacing: 0.5px;
+    border-top: 1px solid var(--border);
+  }
+
+  @keyframes fadeUp {
+    from { opacity:0; transform:translateY(24px); }
+    to   { opacity:1; transform:translateY(0); }
+  }
+
+  @media (max-width: 540px) {
+    nav { padding: 20px 24px; }
+    h1 { letter-spacing: -2px; }
+    .stats { gap: 20px; }
+    .input-row { flex-direction: column; padding: 12px; gap: 8px; }
+    .submit-btn { width:100%; padding:14px; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">Make<em>AbeT</em></div>
+  <div class="nav-badge">Built on Solana</div>
+</nav>
+
+<main>
+  <div class="eyebrow">Early Access · Now Open</div>
+
+  <h1>
+    Bet on anything.
+    <span class="line2">You set the odds.</span>
+  </h1>
+
+  <p class="sub">
+    The first permissionless prediction market where <em>you</em> create the bets.
+    On-chain escrow. Automatic payouts. No gatekeepers.
+  </p>
+
+  <div class="features">
+    <div class="feat"><span class="dot"></span> User-created markets</div>
+    <div class="feat"><span class="dot"></span> On-chain settlement</div>
+    <div class="feat"><span class="dot"></span> $MAT token</div>
+    <div class="feat"><span class="dot"></span> Non-custodial</div>
+  </div>
+
+  <div class="form-wrap">
+    <form id="waitlist-form">
+      <div class="input-row">
+        <input type="email" name="email" id="email-input" placeholder="Enter your email address" autocomplete="email" required />
+        <button class="submit-btn" id="submit-btn" type="submit">Join Waitlist →</button>
+      </div>
+    </form>
+    <div id="msg"></div>
+  </div>
+
+  <div class="stats">
+    <div>
+      <div class="stat-val" id="counter">—</div>
+      <div class="stat-lbl">ON WAITLIST</div>
+    </div>
+    <div class="stat-div"></div>
+    <div>
+      <div class="stat-val">Q2 2026</div>
+      <div class="stat-lbl">TARGET LAUNCH</div>
+    </div>
+    <div class="stat-div"></div>
+    <div>
+      <div class="stat-val">$MAT</div>
+      <div class="stat-lbl">PAYMENT TOKEN</div>
+    </div>
+    <div class="stat-div"></div>
+    <div>
+      <a href="https://x.com/MakeAbeTSol" target="_blank" style="display:flex;flex-direction:column;align-items:center;gap:6px;text-decoration:none;">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="#e8edf5" xmlns="http://www.w3.org/2000/svg"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.736-8.857L1.254 2.25H8.08l4.253 5.622 5.911-5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+        <div class="stat-lbl">FOLLOW US</div>
+      </a>
+    </div>
+  </div>
+</main>
+
+<footer>
+  © 2025 MakeAbeT · Permissionless Prediction Markets · Built on Solana
+</footer>
+
+<script>
+  let count = 847;
+  document.getElementById('counter').textContent = count.toLocaleString();
+
+  const form = document.getElementById('waitlist-form');
+  const btn  = document.getElementById('submit-btn');
+  const msg  = document.getElementById('msg');
+
+  form.addEventListener('submit', function(e) {
+    e.preventDefault();
+    const email = document.getElementById('email-input').value.trim();
+    if (!email) return;
+
+    btn.disabled = true;
+    btn.textContent = 'Joining...';
+    msg.className = ''; msg.textContent = '';
+
+    fetch('https://formspree.io/f/mdawkdgb', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email: email })
+    })
+    .then(function(res) {
+      if (res.ok) {
+        form.reset();
+        btn.textContent = "You're in!";
+        msg.className = 'success';
+        msg.textContent = "You're on the list! We'll hit you when we launch.";
+        count++;
+        document.getElementById('counter').textContent = count.toLocaleString();
+        setTimeout(function() { btn.disabled = false; btn.textContent = 'Join Waitlist →'; }, 4000);
+      } else { throw new Error('fail'); }
+    })
+    .catch(function() {
+      btn.disabled = false;
+      btn.textContent = 'Join Waitlist →';
+      msg.className = 'error';
+      msg.textContent = 'Something went wrong. Try again.';
+    });
+  });
+</script>
+
+</body>
+</html>
